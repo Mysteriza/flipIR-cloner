@@ -1,7 +1,7 @@
 
 ### FLIPPER ZERO
 
-This project tries to duplicate Flipper with minimum functionality, IR cloner and RFID UID reader/writer
+This project tries to duplicate Flipper Zero with minimum functionality, IR cloner and RFID UID reader/writer.
 
 #### MENU ROUTE
 |  |  |  |  |

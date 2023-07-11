@@ -2,7 +2,10 @@
 ### FLIPPER LITE (Cloner Device)
 
 This project tries to duplicate Flipper Zero with very very very minimum functionality :)
+
 So it has IR cloner (capable of duplicating up to 3 IR signals) and RFID UID reader/writer (1 UID). Thanks to Ahmad Fathan for making me this project.
+
+**Any reading results will be stored in EEPROM, so it will have limited features. Unless you expand it with the feature of being able to save to a memory card, feel free to do so.**
 
 ### PART LIST
 1. ESP32 Lolin32 Lite

@@ -2,20 +2,21 @@
 ### FLIPPER LITE (Cloner Device)
 
 This project tries to duplicate Flipper Zero with very very very minimum functionality :)
-So it has IR cloner (3 signals) and RFID UID reader/writer (1 UID). Thanks to Ahmad Fathan for making me this project.
+So it has IR cloner (capable of duplicating up to 3 IR signals) and RFID UID reader/writer (1 UID). Thanks to Ahmad Fathan for making me this project.
 
 ### PART LIST
 1. ESP32 Lolin32 Lite
 2. RFID Reader RC522 13.56 MHz Mifare Module (to read/write UID)
-3. LCD OLED 0.96 WHITE I2C Modul Display (or bigger screen, but maybe you will need a bigger battery)
-4. Toggle Button (to swith on/off the device)
-5. PCB Matrix Double Side 5x7
-6. Ribbon Cable 10 pins 50 cm
-7. Infrared & Photodiode LED Pair 5mm / IR TX & RX
-8. HX1838 Remote Control IR Modul Infrared Modul Remote HX 1838
-9. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just get ready for anything)
-10. LiPo Battery 400 mAh (or bigger)
-11. TP4056 LiPo Charger + Protection Battery Lithium Micro USB Modul 1A
+3. RFID Card 13.56 MHz
+4. LCD OLED 0.96 I2C Modul Display (or bigger screen, but maybe you will need a bigger battery)
+5. Toggle Button (to swith on/off the device)
+6. PCB Matrix Double Side 5x7
+7. Ribbon Cable 10 pins 50 cm
+8. Infrared & Photodiode LED Pair 5mm / IR TX & RX
+9. HX1838 Remote Control IR Modul Infrared Modul Remote HX 1838
+10. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just get ready for anything)
+11. LiPo Battery 400 mAh (or bigger)
+12. TP4056 LiPo Charger + Protection Battery Lithium Micro USB Modul 1A
 
 #### MENU ROUTE
 |  |  |  |  |

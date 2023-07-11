@@ -3,7 +3,11 @@
 
 This project tries to duplicate Flipper Zero with very very very minimum functionality :)
 
-So it has IR cloner (capable of duplicating up to 3 IR signals) and RFID UID reader/writer (1 UID). Thanks to Ahmad Fathan for making me this project.
+Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for making me this project.
+
+So it has:
+1. IR cloner (capable of duplicating up to 3 IR signals)
+2. RFID UID reader/writer (1 UID).
 
 **Any reading results will be stored in EEPROM, so it will have limited features. Unless you expand it with the feature of being able to save to a memory card, feel free to do so.**
 

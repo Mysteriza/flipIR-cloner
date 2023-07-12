@@ -17,13 +17,14 @@ So it has:
 3. RFID Card 13.56 MHz
 4. LCD OLED 0.96 I2C Modul Display (or bigger screen, but maybe you will need a bigger battery)
 5. Toggle Button (to swith on/off the device)
-6. PCB Matrix Double Side 5x7
-7. Ribbon Cable 10 pins 50 cm
-8. Infrared & Photodiode LED Pair 5mm / IR TX & RX
-9. HX1838 Remote Control IR Modul Infrared Modul Remote HX 1838
-10. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just get ready for anything)
-11. LiPo Battery 400 mAh (or bigger)
-12. TP4056 LiPo Charger + Protection Battery Lithium Micro USB Modul 1A
+6. Push Button (3 pcs)
+7. PCB Matrix Double Side 5x7
+8. Ribbon Cable 10 pins 50 cm
+9. Infrared & Photodiode LED Pair 5mm / IR TX & RX
+10. HX1838 Remote Control IR Modul Infrared Modul Remote HX 1838
+11. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just get ready for anything)
+12. LiPo Battery 400 mAh (or bigger)
+13. TP4056 LiPo Charger + Protection Battery Lithium Micro USB Modul 1A
 
 #### MENU ROUTE
 |  |  |  |  |

@@ -26,6 +26,10 @@ So it has:
 12. LiPo Battery 400 mAh (or bigger)
 13. TP4056 LiPo Charger + Protection Battery Lithium Micro USB Modul 1A
 
+Optional, if you want to 3D printed the case:
+1. 3D Printer
+2. Filament
+
 #### MENU ROUTE
 |  |  |  |  |
 |-------------|-------------|--------------|------------|

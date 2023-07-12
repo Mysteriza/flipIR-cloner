@@ -5,28 +5,29 @@ This project tries to duplicate [Flipper Zero](https://flipperzero.one/) with ve
 
 Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for making me this project.
 
-So it has:
+It has:
 1. IR cloner (capable of duplicating up to 3 IR signals)
-2. RFID UID reader/writer (1 UID).
+2. RFID UID reader/writer (1 UID)
 
-**Any reading results will be stored in EEPROM, so it will have limited features. Unless you expand it with the feature of being able to save to a memory card, feel free to do so.**
+***Any read results will be stored in EEPROM, so it will have limited features and capacity. Unless you expand it with the feature of being able to read/write to a memory card, feel free to do so.***
 
-### PART LIST
+#### PART LIST
+
 1. ESP32 Lolin32 Lite
-2. RFID Reader RC522 13.56 MHz Mifare Module (to read/write UID)
+2. RFID Reader RC522 13.56 MHz Mifare Module (for read/write UID)
 3. RFID Card 13.56 MHz
-4. LCD OLED 0.96 I2C Modul Display (or bigger screen, but maybe you will need a bigger battery)
-5. Toggle Button (to swith on/off the device)
+4. LCD OLED 0.96 I2C Module Display (or bigger screen, but you might need a bigger battery)
+5. Toggle Button (to switch on/off the device)
 6. Push Button (3 pcs)
 7. PCB Matrix Double Side 5x7
 8. Ribbon Cable 10 pins 50 cm
 9. Infrared & Photodiode LED Pair 5mm / IR TX & RX
-10. HX1838 Remote Control IR Modul Infrared Modul Remote HX 1838
-11. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just get ready for anything)
+10. HX1838 Remote Control IR Module Infrared Module Remote HX 1838
+11. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just prepare for any contingencies)
 12. LiPo Battery 400 mAh (or bigger)
-13. TP4056 LiPo Charger + Protection Battery Lithium Micro USB Modul 1A
+13. TP4056 LiPo Charger + Battery Protection Lithium Micro USB Module 1A
 
-Optional, if you want to 3D printed the case:
+Optional, if you want to 3D print the case:
 1. 3D Printer
 2. Filament
 

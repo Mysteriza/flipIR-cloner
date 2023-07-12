@@ -1,7 +1,7 @@
 
 ### FLIPPER LITE (Cloner Device)
 
-This project tries to duplicate Flipper Zero with very very very minimum functionality :)
+This project tries to duplicate [Flipper Zero](https://flipperzero.one/) with very very very minimum functionality :)
 
 Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for making me this project.
 

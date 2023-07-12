@@ -298,6 +298,9 @@ void write_tag_uid() {
   u8g2.drawStr(0, 50, &uid_str[0]);
   u8g2.sendBuffer();
 
+  Serial.print("UID to be written: ");
+  Serial.println(uid_str);
+
   uint64_t now = millis();
   bool success = false;
   char* err_title = "Timeout!";
@@ -316,16 +319,13 @@ void write_tag_uid() {
       success = false;
       break;
     }
-
-    Serial.print("UID to be written: ");
-    Serial.println(uid_str);
-
+    
     success = true;
     break;
   }
 
   uint8_t selection = u8g2.userInterfaceMessage(
-    success ? "Success!" : err_title,
+    success ? "Success" : err_title,
     "",
     success ? "" : err_msg,
     success ? " OK " : " OK \n Retry ");

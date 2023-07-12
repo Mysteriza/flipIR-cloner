@@ -138,13 +138,13 @@ void loop(void) {
       emit_ir_signal(1);
     } else if (current_route.title == "Add IR Signal") {
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Waiting..");
+      u8g2.drawStr(0, 10, "Waiting...");
       u8g2.sendBuffer();
 
       add_ir_signal(1);
 
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Done");
+      u8g2.drawStr(0, 10, "Done!");
       u8g2.sendBuffer();
     }
     return;
@@ -153,13 +153,13 @@ void loop(void) {
       emit_ir_signal(2);
     } else if (current_route.title == "Add IR Signal") {
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Waiting..");
+      u8g2.drawStr(0, 10, "Waiting...");
       u8g2.sendBuffer();
 
       add_ir_signal(2);
 
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Done");
+      u8g2.drawStr(0, 10, "Done!");
       u8g2.sendBuffer();
     }
     return;
@@ -168,13 +168,13 @@ void loop(void) {
       emit_ir_signal(3);
     } else if (current_route.title == "Add IR Signal") {
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Recording..");
+      u8g2.drawStr(0, 10, "Recording...");
       u8g2.sendBuffer();
 
       add_ir_signal(3);
 
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Done");
+      u8g2.drawStr(0, 10, "Done!");
       u8g2.sendBuffer();
     }
     return;
@@ -223,6 +223,13 @@ void add_ir_signal(uint8_t signal_num) {
 
       EEPROM.commit();
 
+      Serial.print("Received IR Signal: ");
+      for (uint16_t i = 0; i < j; i++) {
+        Serial.print(rawdata[i]);
+        Serial.print(" ");
+      }
+      Serial.println();
+
       break;
     }
     if (millis() - now > ADD_IR_SIGNAL_TIMEOUT) break;
@@ -246,7 +253,7 @@ void emit_ir_signal(uint8_t signal_num) {
   }
 
   u8g2.clearBuffer();
-  u8g2.drawStr(0, 10, "Emiting..");
+  u8g2.drawStr(0, 10, "Emiting...");
   u8g2.sendBuffer();
 
   uint16_t raw_data[signal_len];
@@ -256,6 +263,14 @@ void emit_ir_signal(uint8_t signal_num) {
   for (uint16_t i = 0; i < signal_len; i++) {
     raw_data[i] = EEPROM.readUShort(addr_signal + (i * 2));
   }
+
+  // Tambahkan kode berikut untuk menampilkan sinyal infrared pada Serial Monitor
+  Serial.print("Emitted Infrared Signal: ");
+  for (uint16_t i = 0; i < signal_len; i++) {
+    Serial.print(raw_data[i]);
+    Serial.print(" ");
+  }
+  Serial.println();
 
   irsend.sendRaw(raw_data, signal_len, CARRIER_SIGNAL_FREQ);
 }
@@ -279,13 +294,13 @@ void write_tag_uid() {
   uid_str.toUpperCase();
 
   u8g2.clearBuffer();
-  u8g2.drawStr(0, 10, "Writing TAG..");
+  u8g2.drawStr(0, 10, "Writing TAG...");
   u8g2.drawStr(0, 50, &uid_str[0]);
   u8g2.sendBuffer();
 
   uint64_t now = millis();
   bool success = false;
-  char* err_title = "Timeout";
+  char* err_title = "Timeout!";
   char* err_msg = "";
   while (true) {
     if (millis() - now > WRITE_TAG_UID_TIMEOUT) break;
@@ -297,20 +312,23 @@ void write_tag_uid() {
     // Write tag UID
     if (!mfrc522.MIFARE_SetUid(uid, uid_len, true)) {
       err_title = "Failed";
-      err_msg = "Not supported";
+      err_msg = "Card Declined.";
       success = false;
       break;
     }
+
+    Serial.print("UID to be written: ");
+    Serial.println(uid_str);
 
     success = true;
     break;
   }
 
   uint8_t selection = u8g2.userInterfaceMessage(
-    success ? "Success" : err_title,
+    success ? "Success!" : err_title,
     "",
     success ? "" : err_msg,
-    success ? " ok " : " ok \n retry ");
+    success ? " OK " : " OK \n Retry ");
 
   if (selection == 2) {  // retry
     write_tag_uid();
@@ -320,7 +338,7 @@ void write_tag_uid() {
 void read_tag_uid() {
 
   u8g2.clearBuffer();
-  u8g2.drawStr(0, 10, "Reading TAG..");
+  u8g2.drawStr(0, 10, "Reading TAG...");
   u8g2.sendBuffer();
 
   String uid_str = "";
@@ -351,15 +369,18 @@ void read_tag_uid() {
 
     EEPROM.commit();
 
+    Serial.print("Received UID: ");
+    Serial.println(uid_str);
+
     found = true;
     break;
   }
 
   uint8_t selection = u8g2.userInterfaceMessage(
-    found ? "Saved" : "Timeout",
+    found ? "Saved!" : "Timeout!",
     found ? &uid_str[0] : "",
     "",
-    found ? " ok " : " ok \n retry ");
+    found ? " OK " : " OK \n Retry ");
 
   if (selection == 2) {  // retry
     read_tag_uid();

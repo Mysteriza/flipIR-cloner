@@ -5,7 +5,7 @@
 #define MAX_IR_SIGNAL_LEN             1000        // maximum of IR signal length
 #define MAX_IR_SIGNAL_COUNT           3           // total of IR signal saved
 
-#define ADD_IR_SIGNAL_TIMEOUT         5000
+#define ADD_IR_SIGNAL_TIMEOUT         10000
 
 #define IR_LED_PIN                    4           // GPIO 4, where IR LED attached
 #define IR_RECEIVER_PIN               15          // GPIO 15,  where IR Recevier attached
@@ -34,7 +34,7 @@
 #define MISO_PIN                      12
 #define SCK_PIN                       14 
 
-#define READ_TAG_UID_TIMEOUT          5000
+#define READ_TAG_UID_TIMEOUT          10000
 #define WRITE_TAG_UID_TIMEOUT         5000
 
 #endif

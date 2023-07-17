@@ -64,7 +64,7 @@ Optional, if you want to 3D print the case:
 2. IR send/receive, https://github.com/crankyoldgit/IRremoteESP8266
 3. MFRC522, https://github.com/miguelbalboa/rfid
 
-#### Showcase
+#### Showcase and Inside
 
 <div style="text-align:center">
   <img src="https://github.com/ahmadfathan/flipper-zero/blob/9742cb3e889354f63acfe1f884749bedc68e0789/images/image1.jpeg" width="400">

@@ -1,7 +1,7 @@
 
-### FLIPPER LITE (Cloner Device)
+### FlipIR Cloner (Cloner Device)
 
-This project tries to duplicate [Flipper Zero](https://flipperzero.one/) with very very very minimum functionality :)
+This id a device created for cloning IR Signals and RFID 13.56 MHz, just like [Flipper Zero](https://flipperzero.one/) but with very very very minimum functionality :)
 
 Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for making me this project.
 

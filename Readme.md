@@ -26,6 +26,7 @@ It has:
 11. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just prepare for any contingencies)
 12. LiPo Battery 400 mAh (or bigger)
 13. TP4056 LiPo Charger + Battery Protection Lithium Micro USB Module 1A
+14. Transistor NPN s9013
 
 Optional, if you want to 3D print the case:
 1. 3D Printer

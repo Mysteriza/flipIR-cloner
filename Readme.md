@@ -17,8 +17,8 @@ It has:
 2. RFID Reader RC522 13.56 MHz Mifare Module (for read/write UID)
 3. RFID Card 13.56 MHz
 4. LCD OLED 0.96 I2C Module Display (or bigger screen, but you might need a bigger battery)
-5. Toggle Button (to switch on/off the device)
-6. Push Button (3 pcs)
+5. Toggle Button (button for control menu)
+6. Switch Button (to turn on/off)
 7. PCB Matrix Double Side 5x7
 8. Ribbon Cable 10 pins 50 cm
 9. Infrared & Photodiode LED Pair 5mm / IR TX & RX

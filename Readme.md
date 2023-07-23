@@ -44,20 +44,7 @@ Optional, if you want to 3D print the case:
 |             | > RFID      | > Read Tag   |            |
 |             |             | > Write Tag  |            |
 
-#### EEPROM Address Mapping
 
-##### 1. IR Signal
-|Address From|Address To|Remark|
-|-|-|-|
-|0|999|IR Signal 1|
-|1000|1999|IR Signal 2|
-|2000|2999|IR Signal 3|
-
-##### 2. RFID
-
-|Address From|Address To|Remark|
-|-|-|-|
-|3000|30009|UID 1 (currently only 1 RFID Tag)|
 
 #### Dependency
 

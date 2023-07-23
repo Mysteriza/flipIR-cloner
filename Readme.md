@@ -6,7 +6,7 @@ This is a device for cloning IR Signals and RFID 13.56 MHz, just like [Flipper Z
 Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for making me this project.
 
 It has:
-1. IR cloner (capable of duplicating up to 3 IR signals)
+1. IR cloner (capable of duplicating up to 5 IR signals)
 2. RFID UID reader/writer (1 UID)
 
 ***Any read results will be stored in EEPROM, so it will have limited features and capacity. Unless you expand it with the feature of being able to read/write to a memory card, feel free to do so.***

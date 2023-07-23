@@ -35,14 +35,21 @@ Optional, if you want to 3D print the case:
 #### MENU ROUTE
 |  |  |  |  |
 |-------------|-------------|--------------|------------|
-| > Main Menu | > IR Signal | > Add Signal | > Signal 1 |
+| > Main Menu | > IR Signal | > Add IR     | > Signal 1 |
 |             |             |              | > Signal 2 |
 |             |             |              | > Signal 3 |
-|             |             | > IR Signal  | > Signal 1 |
+|             |             |              | > Signal 4 |
+|             |             |              | > Signal 5 |
+|             |             |              | > Back     |
+|             |             | > Emit IR    | > Signal 1 |
 |             |             |              | > Signal 2 |
 |             |             |              | > Signal 3 |
+|             |             |              | > Signal 4 |
+|             |             |              | > Signal 5 |
+|             |             |              | > Back     |
 |             | > RFID      | > Read Tag   |            |
 |             |             | > Write Tag  |            |
+|             |             | > Back       |            |
 
 
 

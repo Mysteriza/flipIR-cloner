@@ -3,7 +3,7 @@
 
 This is a device for cloning IR Signals and RFID 13.56 MHz, just like [Flipper Zero](https://flipperzero.one/) but with very very very minimum functionality :)
 
-Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for making me this project.
+Thanks to [Ahmad Fathan](https://github.com/ahmadfathan) for helping me making this project.
 
 It has:
 1. IR cloner (capable of duplicating up to 5 IR signals)

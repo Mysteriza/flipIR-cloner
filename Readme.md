@@ -50,7 +50,10 @@ Optional, if you want to 3D print the case:
 |             |             |              | > Signal 4 |
 |             |             |              | > Signal 5 |
 |             |             |              | > Back     |
-|             | > RFID      | > Read Tag   |            |
+|             |             | > Emit All   |            |
+|             |             | > Back       |            |
+|             | > RFID      | > Read Info  |            |
+|             |             | > Read Tag   |            |
 |             |             | > Write Tag  |            |
 |             |             | > Back       |            |
 

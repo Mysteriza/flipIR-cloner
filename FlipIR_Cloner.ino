@@ -27,6 +27,7 @@ U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, /* clock=*/SCL, /* data=*/SDA,
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);  // Create MFRC522 instance
 
+#define EMIT_ALL_DELAY 10  // Delay between each signal in "Emit All" in milliseconds
 
 struct Route {
   uint8_t pos;
@@ -60,24 +61,28 @@ Route ir_signal_route[] = {
                               "Signal 5\n"
                               "Back",
          &signal_route[0], 6 },
-  Route{ 3, "Back" }
+  Route{ 3, "Emit All" },
+  Route{ 4, "Back" }
 };
 
 Route rfid_route[] = {
-  Route{ 1, "Read Tag" },
-  Route{ 2, "Write Tag" },
-  Route{ 3, "Back" },
+  Route{ 1, "Read Info" },
+  Route{ 2, "Read Tag" },
+  Route{ 3, "Write Tag" },
+  Route{ 4, "Back" },
 };
 
 Route main_menu_route[] = {
   Route{ 1, "IR Signal", "Add IR Signal\n"
                          "Emit IR Signal\n"
+                         "Emit All\n"
                          "Back",
-         &ir_signal_route[0], 3 },
-  Route{ 2, "RFID", "Read Tag\n"
+         &ir_signal_route[0], 4 },
+  Route{ 2, "RFID", "Read Info\n"
+                    "Read Tag\n"
                     "Write Tag\n"
                     "Back",
-         &rfid_route[0], 3 },
+         &rfid_route[0], 4 },
   Route{ 3, "Back" }
 };
 
@@ -131,6 +136,9 @@ void loop(void) {
     route_pos--;
     current_route = back_stack[route_pos];
     last_selection = 0;
+    return;
+  } else if (next_route->title == "Read Info") {
+    read_info();
     return;
   } else if (next_route->title == "Read Tag") {
     read_tag_uid();
@@ -212,6 +220,20 @@ void loop(void) {
       u8g2.drawStr(0, 10, "Done!");
       u8g2.sendBuffer();
     }
+    return;
+  } else if (next_route->title == "Emit All") {
+    for (uint8_t i = 1; i <= MAX_IR_SIGNAL_COUNT; i++) {
+      // Display the message on the OLED display
+      u8g2.clearBuffer();                   // clear the internal memory
+      u8g2.drawStr(0, 10, "Emitting IR ");  // write something to the internal memory
+      u8g2.setCursor(100, 10);
+      u8g2.print(i);
+      u8g2.sendBuffer();  // transfer internal memory to the display
+      emit_ir_signal(i);
+      delay(EMIT_ALL_DELAY);  // add delay between signals
+    }
+    // Return to the IR Signal menu after all signals have been emitted
+    current_route = main_menu_route[0];
     return;
   }
 
@@ -349,7 +371,7 @@ void write_tag_uid() {
 
     // Write tag UID
     if (!mfrc522.MIFARE_SetUid(uid, uid_len, true)) {
-      err_title = "Failed";
+      err_title = "Failed!";
       err_msg = "Card Declined.";
       success = false;
       break;
@@ -397,10 +419,8 @@ void read_tag_uid() {
 
       EEPROM.writeByte(addr_rfid_tag_uid, mfrc522.uid.uidByte[i]);
 
-      uid_str += String(mfrc522.uid.uidByte[i], 16) + " ";
+      uid_str += String(mfrc522.uid.uidByte[i], 16) + "";
     }
-
-    uid_str.toUpperCase();
 
     EEPROM.commit();
 
@@ -420,4 +440,50 @@ void read_tag_uid() {
   if (selection == 2) {  // retry
     read_tag_uid();
   }
+}
+
+void read_info() {
+  u8g2.clearBuffer();
+  u8g2.drawStr(0, 10, "Reading Info...");
+  u8g2.sendBuffer();
+
+  uint64_t now = millis();
+  bool found = false;
+  String rfid_info = "";  // String to hold RFID info to display
+
+  while (true) {
+    if (millis() - now > READ_TAG_INFO_TIMEOUT) break;
+    if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
+      delay(50);
+      continue;
+    }
+
+    // RFID Tag found
+    MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
+    for (byte i = 0; i < mfrc522.uid.size; i++) {
+      rfid_info += String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : "");
+      rfid_info += String(mfrc522.uid.uidByte[i], HEX);
+    }
+    rfid_info += "\n" + String(mfrc522.PICC_GetTypeName(piccType));
+
+    mfrc522.PICC_HaltA();       // halt PICC
+    mfrc522.PCD_StopCrypto1();  // stop encryption on PCD
+
+    found = true;  // set found to true
+    break;
+  }
+
+  // Display the RFID info on the OLED
+  u8g2.clearBuffer();
+  u8g2.drawStr(0, 10, rfid_info.c_str());
+  u8g2.sendBuffer();
+
+  // Print the RFID info to the Serial Monitor
+  Serial.println(rfid_info);
+
+  uint8_t selection = u8g2.userInterfaceMessage(
+    found ? rfid_info.c_str() : "Timeout!",
+    "",
+    "",
+    " OK ");
 }

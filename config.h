@@ -4,8 +4,14 @@
 /** IR Signal **/
 const uint16_t MAX_IR_SIGNAL_LEN = 500;  // maximum of IR signal length
 const uint8_t MAX_IR_SIGNAL_COUNT = 5;   // total of IR signal saved
-
 const uint16_t ADD_IR_SIGNAL_TIMEOUT = 7000;
+
+// Define pin numbers for RF receiver and transmitter
+#define RF_RECEIVER_PIN 33
+#define RF_TRANSMITTER_PIN 25
+#define MAX_RF_SIGNALS 5
+#define RF_SIGNAL_EEPROM_START_ADDR 3500
+#define RF_SIGNAL_SIZE 8 // Size of each RF signal data in bytes
 
 #define IR_LED_PIN 4                              // GPIO 4, where IR LED attached
 #define IR_RECEIVER_PIN 15                        // GPIO 15,  where IR Recevier attached
@@ -23,6 +29,7 @@ const uint8_t IR_RECV_TOLERANCE_PERCENTAGE = 25;  // tolerance percentage in %
 /** Display **/
 #define DISPLAY_FONT u8g2_font_8x13_tf  // font of LED display, refer to https://github.com/olikraus/u8g2/wiki/fntlistall
 
+
 /** EEPROM **/
 #define EEPROM_SIZE 4096  // in byte
 #define ADDR_RFID_TAG_UID 3000
@@ -38,5 +45,6 @@ const uint8_t IR_RECV_TOLERANCE_PERCENTAGE = 25;  // tolerance percentage in %
 const uint16_t READ_TAG_UID_TIMEOUT = 5000;
 const uint16_t READ_TAG_INFO_TIMEOUT = 5000;
 const uint16_t WRITE_TAG_UID_TIMEOUT = 5000;
+
 
 #endif

@@ -59,6 +59,19 @@ Optional, if you want to 3D print the case:
 |             |             | > Read Tag   |            |
 |             |             | > Write Tag  |            |
 |             |             | > Back       |            |
+|             | > Sub-GHz   | > Add RF     | > Signal 1 |
+|             |             |              | > Signal 2 |
+|             |             |              | > Signal 3 |
+|             |             |              | > Signal 4 |
+|             |             |              | > Signal 5 |
+|             |             |              | > Back     |
+|             |             | > Emit RF    | > Signal 1 |
+|             |             |              | > Signal 2 |
+|             |             |              | > Signal 3 |
+|             |             |              | > Signal 4 |
+|             |             |              | > Signal 5 |
+|             |             |              | > Back     |
+|             |             | > Back       |            |
 
 
 

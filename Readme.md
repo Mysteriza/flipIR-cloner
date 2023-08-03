@@ -28,10 +28,11 @@ Features:
 8. Ribbon Cable 10 pins 50 cm
 9. Infrared & Photodiode LED Pair 5mm / IR TX & RX
 10. HX1838 Remote Control IR Module Infrared Module Remote HX 1838
-11. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just prepare for any contingencies)
-12. LiPo Battery 400 mAh (or bigger)
-13. TP4056 LiPo Charger + Battery Protection Lithium Micro USB Module 1A
-14. Transistor NPN s9013
+11. RF Wireless Receiver & Transmitter 433 Mhz (Model MX-05V)
+12. Resistor 220 Ohm (5 pcs, but you only use 1 in this project. Just prepare for any contingencies)
+13. LiPo Battery 400 mAh (or bigger)
+14. TP4056 LiPo Charger + Battery Protection Lithium Micro USB Module 1A
+15. Transistor NPN s9013
 
 Optional, if you want to 3D print the case:
 1. 3D Printer

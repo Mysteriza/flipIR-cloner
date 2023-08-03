@@ -10,7 +10,9 @@ Features:
 2. Emit All (Bruteforce IR Signals, automatically emitting all saved IR signals)
 3. Read Info from RFID Card (only read UID and Type of RFID)
 4. RFID UID reader and writer (1 UID)
-5. Sub-GHz (NEXT UPDATE! Capable duplicating and save one or more 433 Mhz signal and emitting the signal)
+5. Sub-GHz (Capable duplicating up to 5 433 Mhz signal and emitting the signal. but I haven't tested it with 433 Mhz module, maybe it's not working yet)
+6. Sub-GHz Jammer (NEXT UPDATE! Jamming 433 MHz signal)
+7. WiFi Evil Twin (NEXT UPDATE! Hacking 2.4 GHz WiFi with phising page and cloned WiFi)
 
 ***Any read results will be stored in EEPROM, so it will have limited features and capacity. Unless you expand it with the feature of being able to read/write to a memory card or uploading to server/MQTT/cloud, feel free to do so.***
 

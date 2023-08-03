@@ -87,4 +87,5 @@ Optional, if you want to 3D print the case:
   <img src="https://github.com/ahmadfathan/flipper-zero/blob/9742cb3e889354f63acfe1f884749bedc68e0789/images/image1.jpeg" width="400">
   <img src="https://github.com/ahmadfathan/flipper-zero/blob/9742cb3e889354f63acfe1f884749bedc68e0789/images/image2.jpeg" width="400">
   <img src="https://github.com/Mysteriza/flipIR-cloner/blob/main/images/Inside.jpeg" width="400">
+  <img src="https://github.com/Mysteriza/flipIR-cloner/assets/76644526/5ef150a8-7ddb-4f34-a198-272df053f52f" width="400">
 </div>

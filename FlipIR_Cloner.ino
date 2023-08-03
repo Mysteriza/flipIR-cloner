@@ -16,6 +16,8 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
+#include <RCSwitch.h>
+
 #include "config.h"
 
 IRrecv irrecv(IR_RECEIVER_PIN, IR_RECV_BUFFER_SIZE, IR_RECV_TIMEOUT, true);
@@ -26,6 +28,9 @@ decode_results results;  // Somewhere to store the results
 U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, /* clock=*/SCL, /* data=*/SDA, /* reset=*/U8X8_PIN_NONE);  // All Boards without Reset of the Display
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);  // Create MFRC522 instance
+
+// Inisialisasi RCSwitch
+RCSwitch mySwitch = RCSwitch();
 
 #define EMIT_ALL_DELAY 10  // Delay between each signal in "Emit All" in milliseconds
 
@@ -38,27 +43,27 @@ struct Route {
 };
 
 Route signal_route[] = {
-  Route{ 1, "Signal 1" },
-  Route{ 2, "Signal 2" },
-  Route{ 3, "Signal 3" },
-  Route{ 4, "Signal 4" },
-  Route{ 5, "Signal 5" },
+  Route{ 1, "IR Signal 1" },
+  Route{ 2, "IR Signal 2" },
+  Route{ 3, "IR Signal 3" },
+  Route{ 4, "IR Signal 4" },
+  Route{ 5, "IR Signal 5" },
   Route{ 6, "Back" },
 };
 
 Route ir_signal_route[] = {
-  Route{ 1, "Add IR Signal", "Signal 1\n"
-                             "Signal 2\n"
-                             "Signal 3\n"
-                             "Signal 4\n"
-                             "Signal 5\n"
+  Route{ 1, "Add IR Signal", "IR Signal 1\n"
+                             "IR Signal 2\n"
+                             "IR Signal 3\n"
+                             "IR Signal 4\n"
+                             "IR Signal 5\n"
                              "Back",
          &signal_route[0], 6 },
-  Route{ 2, "Emit IR Signal", "Signal 1\n"
-                              "Signal 2\n"
-                              "Signal 3\n"
-                              "Signal 4\n"
-                              "Signal 5\n"
+  Route{ 2, "Emit IR Signal", "IR Signal 1\n"
+                              "IR Signal 2\n"
+                              "IR Signal 3\n"
+                              "IR Signal 4\n"
+                              "IR Signal 5\n"
                               "Back",
          &signal_route[0], 6 },
   Route{ 3, "Emit All" },
@@ -72,6 +77,42 @@ Route rfid_route[] = {
   Route{ 4, "Back" },
 };
 
+Route add_rf_route[] = {
+  Route{ 1, "RF Signal 1" },
+  Route{ 2, "RF Signal 2" },
+  Route{ 3, "RF Signal 3" },
+  Route{ 4, "RF Signal 4" },
+  Route{ 5, "RF Signal 5" },
+  Route{ 6, "Back" },
+};
+
+Route emit_rf_route[] = {
+  Route{ 1, "Emit RF 1" },
+  Route{ 2, "Emit RF 2" },
+  Route{ 3, "Emit RF 3" },
+  Route{ 4, "Emit RF 4" },
+  Route{ 5, "Emit RF 5" },
+  Route{ 6, "Back" },
+};
+
+Route subghz_route[] = {
+  Route{ 1, "Add RF Signal", "RF Signal 1\n"
+                             "RF Signal 2\n"
+                             "RF Signal 3\n"
+                             "RF Signal 4\n"
+                             "RF Signal 5\n"
+                             "Back",
+         &add_rf_route[0], 6 },
+  Route{ 2, "Emit RF Signal", "Emit RF 1\n"
+                              "Emit RF 2\n"
+                              "Emit RF 3\n"
+                              "Emit RF 4\n"
+                              "Emit RF 5\n"
+                              "Back",
+         &emit_rf_route[0], 6 },
+  Route{ 3, "Back" },
+};
+
 Route main_menu_route[] = {
   Route{ 1, "IR Signal", "Add IR Signal\n"
                          "Emit IR Signal\n"
@@ -83,12 +124,17 @@ Route main_menu_route[] = {
                     "Write Tag\n"
                     "Back",
          &rfid_route[0], 4 },
-  Route{ 3, "Back" }
+  Route{ 3, "Sub-GHz", "Add RF Signal\n"
+                       "Emit RF Signal\n"
+                       "Back",
+         &subghz_route[0], 3 },
+  Route{ 4, "Back" },
 };
 
 Route root = Route{ 1, "Main Menu", "IR Signal\n"
-                                    "RFID",
-                    &main_menu_route[0], 2 };
+                                    "RFID\n"
+                                    "Sub-GHz",
+                    &main_menu_route[0], 3 };
 
 Route current_route = root;
 Route back_stack[10];
@@ -120,7 +166,6 @@ void setup(void) {
 }
 
 void loop(void) {
-
   uint8_t current_selection = u8g2.userInterfaceSelectionList(
     current_route.title,
     (last_selection == 0) ? current_route.children[0].pos : last_selection,
@@ -146,12 +191,12 @@ void loop(void) {
   } else if (next_route->title == "Write Tag") {
     write_tag_uid();
     return;
-  } else if (next_route->title == "Signal 1") {
+  } else if (next_route->title == "IR Signal 1") {
     if (current_route.title == "Emit IR Signal") {
       emit_ir_signal(1);
     } else if (current_route.title == "Add IR Signal") {
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Recording......");
+      u8g2.drawStr(0, 10, "Recording...");
       u8g2.sendBuffer();
 
       add_ir_signal(1);
@@ -161,12 +206,12 @@ void loop(void) {
       u8g2.sendBuffer();
     }
     return;
-  } else if (next_route->title == "Signal 2") {
+  } else if (next_route->title == "IR Signal 2") {
     if (current_route.title == "Emit IR Signal") {
       emit_ir_signal(2);
     } else if (current_route.title == "Add IR Signal") {
       u8g2.clearBuffer();
-      u8g2.drawStr(0, 10, "Recording......");
+      u8g2.drawStr(0, 10, "Recording...");
       u8g2.sendBuffer();
 
       add_ir_signal(2);
@@ -176,7 +221,7 @@ void loop(void) {
       u8g2.sendBuffer();
     }
     return;
-  } else if (next_route->title == "Signal 3") {
+  } else if (next_route->title == "IR Signal 3") {
     if (current_route.title == "Emit IR Signal") {
       emit_ir_signal(3);
     } else if (current_route.title == "Add IR Signal") {
@@ -191,7 +236,7 @@ void loop(void) {
       u8g2.sendBuffer();
     }
     return;
-  } else if (next_route->title == "Signal 4") {
+  } else if (next_route->title == "IR Signal 4") {
     if (current_route.title == "Emit IR Signal") {
       emit_ir_signal(4);
     } else if (current_route.title == "Add IR Signal") {
@@ -206,7 +251,7 @@ void loop(void) {
       u8g2.sendBuffer();
     }
     return;
-  } else if (next_route->title == "Signal 5") {
+  } else if (next_route->title == "IR Signal 5") {
     if (current_route.title == "Emit IR Signal") {
       emit_ir_signal(5);
     } else if (current_route.title == "Add IR Signal") {
@@ -215,6 +260,81 @@ void loop(void) {
       u8g2.sendBuffer();
 
       add_ir_signal(5);
+
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Done!");
+      u8g2.sendBuffer();
+    }
+    return;
+  } else if (next_route->title == "RF Signal 1") {
+    if (current_route.title == "Emit RF Signal") {
+      emitRFSignal(1);
+    } else if (current_route.title == "Add RF Signal") {
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Capturing...");
+      u8g2.sendBuffer();
+
+      addRFSignal(1);
+
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Done!");
+      u8g2.sendBuffer();
+    }
+    return;
+  } else if (next_route->title == "RF Signal 2") {
+    if (current_route.title == "Emit RF Signal") {
+      emitRFSignal(2);
+    } else if (current_route.title == "Add RF Signal") {
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Capturing...");
+      u8g2.sendBuffer();
+
+      addRFSignal(2);
+
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Done!");
+      u8g2.sendBuffer();
+    }
+    return;
+  } else if (next_route->title == "RF Signal 3") {
+    if (current_route.title == "Emit RF Signal") {
+      emitRFSignal(3);
+    } else if (current_route.title == "Add RF Signal") {
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Capturing...");
+      u8g2.sendBuffer();
+
+      addRFSignal(3);
+
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Done!");
+      u8g2.sendBuffer();
+    }
+    return;
+  } else if (next_route->title == "RF Signal 4") {
+    if (current_route.title == "Emit RF Signal") {
+      emitRFSignal(4);
+    } else if (current_route.title == "Add RF Signal") {
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Capturing...");
+      u8g2.sendBuffer();
+
+      addRFSignal(4);
+
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Done!");
+      u8g2.sendBuffer();
+    }
+    return;
+  } else if (next_route->title == "RF Signal 5") {
+    if (current_route.title == "Emit RF Signal") {
+      emitRFSignal(5);
+    } else if (current_route.title == "Add RF Signal") {
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "Capturing...");
+      u8g2.sendBuffer();
+
+      addRFSignal(5);
 
       u8g2.clearBuffer();
       u8g2.drawStr(0, 10, "Done!");
@@ -243,6 +363,7 @@ void loop(void) {
   last_selection = 0;
 }
 
+
 Route* find_next_route_by_pos(uint8_t pos) {
   for (uint8_t i = 0; i < current_route.num_of_children; i++) {
     if (pos == current_route.children[i].pos) {
@@ -251,6 +372,85 @@ Route* find_next_route_by_pos(uint8_t pos) {
   }
   return NULL;
 }
+
+// Fungsi untuk menambahkan sinyal RF
+void addRFSignal(int signalNum) {
+  mySwitch.enableReceive(33);
+
+  unsigned long rfSignal;
+  uint16_t address = RF_SIGNAL_EEPROM_START_ADDR + (signalNum - 1) * RF_SIGNAL_SIZE;
+
+  // Clear the previous RF signal data at the specified address
+  for (int i = 0; i < RF_SIGNAL_SIZE; i++) {
+    EEPROM.write(address + i, 0);
+  }
+
+  // Capture RF signal within 7 seconds
+  unsigned long startTime = millis();
+  while (millis() - startTime < 7000) {
+    if (mySwitch.available()) {
+      rfSignal = mySwitch.getReceivedValue();
+      // Save RF signal data to EEPROM
+      EEPROM.put(address, rfSignal);
+      mySwitch.resetAvailable();
+      u8g2.clearBuffer();
+      u8g2.drawStr(0, 10, "RF Captured!");
+      u8g2.sendBuffer();
+
+      // Print the captured RF Signal to serial monitor
+      Serial.print("Captured RF Signal (Decimal): ");
+      Serial.println(rfSignal);
+      Serial.print("Captured RF Signal (Hexadecimal): 0x");
+      Serial.println(rfSignal, HEX);
+
+      delay(700);
+      return;
+    }
+  }
+
+  // If no RF signal captured within 7 seconds, display a message and return to the main menu
+  u8g2.clearBuffer();
+  u8g2.drawStr(0, 10, "No RF Captured!");
+  u8g2.sendBuffer();
+  delay(700);
+  current_route = subghz_route[1];
+
+  mySwitch.disableReceive();  // Nonaktifkan modul RF sebagai penerima setelah selesai mengirim sinyal
+}
+
+// Fungsi untuk mengirim sinyal RF
+void emitRFSignal(int signalNum) {
+  mySwitch.enableTransmit(25);
+
+  uint16_t address = RF_SIGNAL_EEPROM_START_ADDR + (signalNum - 1) * RF_SIGNAL_SIZE;
+  unsigned long rfSignal;
+
+  // Read the RF signal data from EEPROM
+  EEPROM.get(address, rfSignal);
+
+  // Check if the RF signal data is valid
+  if (rfSignal != 0) {
+    // Send the RF signal
+    mySwitch.send(rfSignal, 24);  // Send 24-bit RF signal (adjust the number of bits if needed)
+    delay(10);
+    //mySwitch.send(rfSignal, 24);  // Send it twice for better reliability
+    u8g2.clearBuffer();
+    u8g2.drawStr(0, 10, "RF Signal Sent!");
+    u8g2.sendBuffer();
+    delay(500);
+  } else {
+    // If RF signal data is not available, display a message
+    u8g2.clearBuffer();
+    u8g2.drawStr(0, 10, "No RF Saved!");
+    u8g2.sendBuffer();
+    delay(1000);
+
+    // Return to "Emit RF Signal" menu
+    current_route = subghz_route[2];  // Assuming the "Emit RF Signal" option is the second option in the "IR Signal" menu
+  }
+  mySwitch.disableTransmit();
+}
+
 
 void add_ir_signal(uint8_t signal_num) {
 
@@ -294,6 +494,7 @@ void add_ir_signal(uint8_t signal_num) {
 
   irrecv.disableIRIn();  // disable IR receiver
 }
+
 
 void emit_ir_signal(uint8_t signal_num) {
 

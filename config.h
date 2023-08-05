@@ -25,6 +25,7 @@ const uint8_t IR_RECV_TOLERANCE_PERCENTAGE = 25;  // tolerance percentage in %
 #define MENU_SELECT_PIN 18  // GPIO 18
 #define MENU_NEXT_PIN 19    // GPIO 19
 #define MENU_PREV_PIN 5     // GPIO 5
+uint8_t btn_state;
 
 /** Display **/
 #define DISPLAY_FONT u8g2_font_8x13_tf  // font of LED display, refer to https://github.com/olikraus/u8g2/wiki/fntlistall

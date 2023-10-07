@@ -87,3 +87,9 @@ Optional, if you want to 3D print the case:
   <img src="https://github.com/Mysteriza/flipIR-cloner/blob/main/images/Inside.jpeg" width="400">
   <img src="https://github.com/Mysteriza/flipIR-cloner/assets/76644526/5ef150a8-7ddb-4f34-a198-272df053f52f" width="400">
 </div>
+
+- **Repo Size:** ![Repo Size](https://img.shields.io/github/repo-size/Mysteriza/flipIR-cloner)
+  
+- **Stars:** ![Stars](https://img.shields.io/github/stars/Mysteriza/flipIR-cloner?style=social)
+  
+- **Forks:** ![Forks](https://img.shields.io/github/forks/Mysteriza/flipIR-cloner?style=social)
